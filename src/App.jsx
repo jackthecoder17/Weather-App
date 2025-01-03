@@ -23,6 +23,7 @@ function App() {
       setWeather(response.data);
       setError("");
     } catch (err) {
+      console.error(err);
       setError("City not found. Please try again.");
       setWeather(null);
     } finally {
@@ -77,18 +78,18 @@ function App() {
   };
 
   return (
-    <div 
-    className="min-h-screen relative flex justify-center items-center p-4 transition-all duration-1000 ease-in-out"
-    style={{
-      backgroundImage: `url(${getBackgroundImage()})`,
-      backgroundSize: 'cover',
-      backgroundPosition: 'center',
-    }}
-  >
-     {/* Dark overlay */}
-     <div className="absolute inset-0 bg-black/40" />
-      <div className="relative bg-white/80 backdrop-blur-sm p-8 rounded-2xl shadow-2xl w-full max-w-[600px] font-poppins">
-        <h1 className="text-3xl font-bold mb-6 text-center text-gray-800">
+    <div
+      className="min-h-screen relative flex justify-center items-center p-4 transition-all duration-1000 ease-in-out"
+      style={{
+        backgroundImage: `url(${getBackgroundImage()})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
+    >
+      {/* Dark overlay */}
+      <div className="absolute inset-0 bg-black/40" />
+      <div className="relative bg-gradient-to-br from-blue-400/80 via-purple-400/70 to-pink-400/80 backdrop-blur-lg p-8 rounded-2xl border border-white/30 shadow-[0_8px_32px_rgba(0,0,0,0.1)] transition-all duration-300 hover:shadow-[0_8px_32px_rgba(0,0,0,0.15)] hover:scale-[1.01] w-full max-w-[600px] font-poppins">
+        <h1 className="text-3xl font-bold mb-6 text-center text-white">
           Weather Forecast
         </h1>
 
@@ -98,11 +99,11 @@ function App() {
               type="text"
               value={city}
               onChange={(e) => setCity(e.target.value)}
-              className="w-full p-4 border rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all pl-12"
+              className="w-full p-4 bg-white/70 border-white/30 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-400 transition-all pl-12"
               placeholder="Enter city name..."
             />
             <svg
-              className="w-6 h-6 absolute left-3 top-4 text-gray-400"
+              className="w-6 h-6 absolute left-3 top-4 text-purple-500"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -117,16 +118,16 @@ function App() {
           </div>
 
           <button
-            type="submit"
-            className="w-full bg-blue-500 hover:bg-blue-600 text-white p-4 rounded-xl transition-all transform hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50"
-            disabled={loading}
-          >
-            {loading ? "Searching..." : "Get Weather"}
-          </button>
+  type="submit"
+  className="w-full bg-gradient-to-r from-blue-400/90 via-purple-400/90 to-pink-400/90 text-white p-4 rounded-xl transition-all transform hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50  shadow-lg hover:shadow-xl hover:from-blue-500/90 hover:via-purple-500/90 hover:to-pink-500/90"
+  disabled={loading}
+>
+  {loading ? "Searching..." : "Get Weather"}
+</button>
         </form>
 
         {error && (
-          <div className="mt-6 p-4 bg-red-100 text-red-700 rounded-xl text-center">
+          <div className="mt-6 p-4 bg-red-400/20 text-red-100 rounded-xl text-center border border-red-200/30">
             {error}
           </div>
         )}
@@ -134,10 +135,10 @@ function App() {
         {weather && (
           <div className="mt-8 space-y-6">
             <div className="text-center">
-              <h2 className="text-2xl font-bold text-gray-800">
+              <h2 className="text-2xl font-bold text-white">
                 {weather.name}, {weather.sys.country}
               </h2>
-              <p className="text-gray-500">
+              <p className="text-white/80">
                 {new Date(weather.dt * 1000).toLocaleDateString("en-US", {
                   weekday: "long",
                   year: "numeric",
@@ -154,37 +155,37 @@ function App() {
                 className="w-20 h-20"
               />
               <div className="text-center">
-                <h3 className="text-4xl font-bold text-gray-800">
+                <h3 className="text-4xl font-bold text-white">
                   {Math.round(weather.main.temp)}°C
                 </h3>
-                <p className="text-lg capitalize text-gray-600">
+                <p className="text-lg capitalize text-white/80">
                   {weather.weather[0].description}
                 </p>
               </div>
             </div>
 
             <div className="grid grid-cols-2 gap-4">
-              <div className="bg-blue-50 p-4 rounded-xl">
-                <p className="text-gray-500">Feels Like</p>
-                <p className="text-xl font-semibold text-gray-800">
+              <div className="bg-white/20 backdrop-blur-sm p-4 rounded-xl border border-white/30">
+                <p className="text-white/80">Feels Like</p>
+                <p className="text-xl font-semibold text-white">
                   {Math.round(weather.main.feels_like)}°C
                 </p>
               </div>
-              <div className="bg-blue-50 p-4 rounded-xl">
-                <p className="text-gray-500">Humidity</p>
-                <p className="text-xl font-semibold text-gray-800">
+              <div className="bg-white/20 backdrop-blur-sm p-4 rounded-xl border border-white/30">
+                <p className="text-white/80">Humidity</p>
+                <p className="text-xl font-semibold text-white">
                   {weather.main.humidity}%
                 </p>
               </div>
-              <div className="bg-blue-50 p-4 rounded-xl">
-                <p className="text-gray-500">Wind Speed</p>
-                <p className="text-xl font-semibold text-gray-800">
+              <div className="bg-white/20 backdrop-blur-sm p-4 rounded-xl border border-white/30">
+                <p className="text-white/80">Wind Speed</p>
+                <p className="text-xl font-semibold text-white">
                   {weather.wind.speed} m/s
                 </p>
               </div>
-              <div className="bg-blue-50 p-4 rounded-xl">
-                <p className="text-gray-500">Pressure</p>
-                <p className="text-xl font-semibold text-gray-800">
+              <div className="bg-white/20 backdrop-blur-sm p-4 rounded-xl border border-white/30">
+                <p className="text-white/80">Pressure</p>
+                <p className="text-xl font-semibold text-white">
                   {weather.main.pressure} hPa
                 </p>
               </div>
@@ -193,9 +194,7 @@ function App() {
         )}
       </div>
 
-      <p className="absolute bottom-4 right-4 text-gray-400 italic">
-        Opedev
-      </p>
+      <p className="absolute bottom-4 right-4 text-gray-400 italic">Opedev</p>
     </div>
   );
 }
